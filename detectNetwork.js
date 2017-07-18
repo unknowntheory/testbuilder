@@ -1,8 +1,8 @@
-// Given a credit card number, this function should return a string with the 
+// Given a credit card number, this function should return a string with the
 // name of a network, like 'MasterCard' or 'American Express'
 // Example: detectNetwork('343456789012345') should return 'American Express'
 
-// How can you tell one card network from another? Easy! 
+// How can you tell one card network from another? Easy!
 // There are two indicators:
 //   1. The first few numbers (called the prefix)
 //   2. The number of digits in the number (called the length)
@@ -13,6 +13,13 @@ var detectNetwork = function(cardNumber) {
   // The American Express network always starts with a 34 or 37 and is 15 digits long
 
   // Once you've read this, go ahead and try to implement this function, then return to the console.
+  var firstTwoDigits = cardNumber.slice(0,2);
+  if (typeof cardNumber === 'string') {
+    if (cardNumber.length===14&&firstTwoDigits.indexOf('38')!==-1||firstTwoDigits.indexOf('39')!==-1) {
+      return 'Diner\'s Club';
+    }else if (cardNumber.length === 15&&firstTwoDigits.indexOf('34')!==-1||firstTwoDigits.indexOf('37')!==-1) {
+      return 'American Express';
+    }
+
+  }
 };
-
-
