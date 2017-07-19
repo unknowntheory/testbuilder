@@ -15,20 +15,20 @@ var detectNetwork = function(cardNumber) {
   // Once you've read this, go ahead and try to implement this function, then return to the console.
 
   if (typeof cardNumber === 'string') {
-    var firstTwoDigits = cardNumber.slice(0,2);
-    var singleDigit = cardNumber.slice(0,1);
-    if (cardNumber.length===14&&firstTwoDigits.indexOf('38')!==-1||cardNumber.length===14&&firstTwoDigits.indexOf('39')!==-1){
+    if (cardNumber.length===14&&/^38|39/g.test(cardNumber)){
               return 'Diner\'s Club';
-    }else if ((cardNumber.length===15&&firstTwoDigits.indexOf('34')!==-1)||(cardNumber.length===15&&firstTwoDigits.indexOf('37')!==-1)){
+    }else if (cardNumber.length===15&&/^34|37/g.test(cardNumber)){
         return 'American Express';
-    }else if((cardNumber.length>=13&&cardNumber.length<=16||cardNumber.length===19)&&singleDigit.indexOf('4')!==-1){
+    }else if((cardNumber.length>=13&&cardNumber.length<=16||cardNumber.length===19)&&/^4/g.test(cardNumber)){
         return 'Visa';
     }else if (cardNumber.length===16&&/^[51-55]/g.test(cardNumber)) {
       return 'MasterCard';
-    }else if((cardNumber.length===16||cardNumber.length===19)&& /^6011|[644-649]|65/g.test(cardNumber)){
+    }else if((cardNumber.length>=12&&cardNumber.length<=19)&&/^5018|5020|5038|6304/g.test(cardNumber)){
+        return "Maestro";
+    }else if(/^6011|[644-649]|65/g.test(cardNumber)&&(cardNumber.length===16||cardNumber.length===19)){
       return "Discover";
-    }else if(cardNumber.length===12&&/^5018|5020|5038|6304/g.test(cardNumber)){
-      return "Maestro";
     }
-  }
+
+ }
 };
+//6011123456746126545
