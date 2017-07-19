@@ -25,6 +25,8 @@ var detectNetwork = function(cardNumber) {
         return 'Visa';
     }else if (cardNumber.length===16&&(firstTwoDigits.indexOf('51')||firstTwoDigits.indexOf('52')||firstTwoDigits.indexOf('53')||firstTwoDigits.indexOf('54')||firstTwoDigits.indexOf('55'))) {
       return 'MasterCard';
+    }else if((cardNumber.length===16||cardNumber.length===19)&& /^6011|[644-649]|65/g.test(cardNumber)){
+      return "Discover";
     }
   }
 };
