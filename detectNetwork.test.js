@@ -53,7 +53,7 @@ describe('Diner\'s Club', function() {
   });
 
   it('has a prefix of 39 and a length of 14', function() {
-    if (detectNetwork('3934567890123') !== 'Diner\'s Club') {
+    if (detectNetwork('39345678901234') !== 'Diner\'s Club') {
       throw new Error('Test failed');
     }
 
@@ -84,7 +84,7 @@ describe('Visa', function() {
   // Chai provides an assert that acts the same as our previous assert.
   // Search the documentation to figure out how to access it.
   //   http://chaijs.com/
-  var assert = chai.strictEqual;// i changed
+  var assert = chai.assert;// i changed
 
 
   it('has a prefix of 4 and a length of 13', function() {
@@ -149,50 +149,27 @@ describe('Discover', function() {
   it('has a prefix of 6011 and a length of 19',function(){
     detectNetwork('6011567891011121314').should.equa('Discover');
   });
-  it('has a prefix of 644 and a length of 16',function(){
-    detectNetwork('6441234564655615').should.equal('Discover');
-  });
-  it('has a prefix of 644 and a length of 19',function(){
-    detectNetwork('6440123456789106546').should.equal('Discover');
-  });
-  it('has a prefix of 645 and a length of 16',function(){
-    detectNetwork('6456789101213456').should.equal('Discover');
-  });
-  it('has a prefix of  645 and a length of 19',function(){
-    detectNetwork('6451234564989534685').should.equal('Discover');
-  });
-  it('has a prefix of  646 and a length of 16',function(){
-    detectNetwork('6461234564989536').should.equal('Discover');
-  });
-  it('has a prefix of  646 and a length of 19',function(){
-    detectNetwork('6461234564989534685').should.equal('Discover');
-  });
-  it('has a prefix of  647 and a length of 16',function(){
-    detectNetwork('6471234564989536').should.equal('Discover');
-  });
-  it('has a prefix of  647 and a length of 19',function(){
-    detectNetwork('6471234564989534685').should.equal('Discover');
-  });
-  it('has a prefix of  648 and a length of 16',function(){
-    detectNetwork('6481234564989536').should.equal('Discover');
-  });
-  it('has a prefix of  648 and a length of 19',function(){
-    detectNetwork('6481234564989534685').should.equal('Discover');
-  });
-  it('has a prefix of  649 and a length of 16',function(){
-    detectNetwork('6491234564989536').should.equal('Discover');
-  });
-  it('has a prefix of  649 and a length of 19',function(){
-    detectNetwork('6491234564989534685').should.equal('Discover');
-  });
+  for (var prefix = 644; prefix <= 649; prefix++) {
+    var length16 = 16;
+    var length19 = 19;
+  (function(prefix) {
+    it('has a prefix of ' + prefix + ' and a length of 16',function(){
+      detectNetwork(prefix&&length16);
+    });
+    it('has a prefix of ' + prefix + ' and a length of 19',function(){
+      detectNetwork(prefix&&length19);
+    });
+  })(prefix);
+}
+
   it('has a prefix of  65 and a length of 16',function(){
     detectNetwork('6571234564989536').should.equal('Discover');
   });
   it('has a prefix of  65 and a length of 19',function(){
     detectNetwork('6571234564989534685').should.equal('Discover');
   });
-});
 
+});
 
 
 describe('Maestro', function() {
@@ -213,5 +190,5 @@ describe('Maestro', function() {
 
 });
 
-describe('should support China UnionPay')
-describe('should support Switch')
+describe('should support China UnionPay');
+describe('should support Switch');
