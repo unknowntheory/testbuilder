@@ -147,7 +147,7 @@ describe('Discover', function() {
     detectNetwork('6011134564845456').should.equal('Discover');
   });
   it('has a prefix of 6011 and a length of 19',function(){
-    detectNetwork('6011567891011121314').should.equa('Discover');
+    detectNetwork('6011567891011121314').should.equal('Discover');
   });
   for (var prefix = 644; prefix <= 649; prefix++) {
     var length16 = 16;
