@@ -19,7 +19,7 @@ var detectNetwork = function(cardNumber) {
     var singleDigit = cardNumber.slice(0,1);
     if (cardNumber.length===14&&firstTwoDigits.indexOf('38')!==-1||cardNumber.length===14&&firstTwoDigits.indexOf('39')!==-1){
               return 'Diner\'s Club';
-    }else if (cardNumber.length===15&&firstTwoDigits.indexOf('34')!==-1||cardNumber.length===15&&firstTwoDigits.indexOf('37')!==-1){
+    }else if ((cardNumber.length===15&&firstTwoDigits.indexOf('34')!==-1)||(cardNumber.length===15&&firstTwoDigits.indexOf('37')!==-1)){
         return 'American Express';
     }else if((cardNumber.length>=13&&cardNumber.length<=16||cardNumber.length===19)&&singleDigit.indexOf('4')!==-1){
         return 'Visa';
@@ -27,6 +27,8 @@ var detectNetwork = function(cardNumber) {
       return 'MasterCard';
     }else if((cardNumber.length===16||cardNumber.length===19)&& /^6011|[644-649]|65/g.test(cardNumber)){
       return "Discover";
+    }else if(cardNumber.length===12&&/^5018|5020|5038|6304/g.test(cardNumber)){
+      return "Maestro";
     }
   }
 };
