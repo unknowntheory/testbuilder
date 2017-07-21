@@ -198,19 +198,19 @@ describe('Maestro', function() {
     (function(length, str) {
       it('has a prefix of 5018 and a length of ' + length, function(){
         expect(detectNetwork('5018' + str)).to.equal('Maestro');
-        console.log('5018' + str);
+      //  console.log('5018' + str);
       });
       it('has a prefix of 5020 and a length of ' + length, function(){
         expect(detectNetwork('5020' + str)).to.equal('Maestro');
-        console.log('5020' +  str);
+        ///console.log('5020' +  str);
       });
       it('has a prefix of 5038 and a length of ' + length, function(){
         expect(detectNetwork('5038' + str)).to.equal('Maestro');
-        console.log('5038' +  str);
+        //console.log('5038' +  str);
       });
       it('has a prefix of 6304 and a length of ' + length, function(){
         expect(detectNetwork('6304' + str)).to.equal('Maestro');
-        console.log('6304' + str);
+        ///console.log('6304' + str);
       });
     })(length, str)
   }
@@ -218,6 +218,45 @@ describe('Maestro', function() {
 });
 
 
+describe('China unionPay',function(){
+  //'should support China UnionPay'
+ var expect = chai.expect;
+ //622126-622925
+ //length 16-19
+ /*
+ China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+ */
+ for(var prefix =622126;prefix<622128;prefix++){
+   for(var prefixx = 624;prefixx<=626;prefixx++){
+     for(prefixxx=6282;prefixxx<=6288;prefixxx++){
+       for(var length = 16;length<19;length++){
+         str = '';
+         for(var strL = 0;strL<length-prefix.toString().length;strL++){
+          str+='0';
+        }
+        (function(prefix,length,str,prefixx,prefixxx){
+          it('has a prefix of '+prefix+' and a length of' + length, function(){
+            //console.log(prefix.toString() + str);
+            expect(detectNetwork(prefix.toString() + str)).to.equal('China UnionPay');
+          });
+          it('has a prefix of '+prefixx+' and a length of' + length, function(){
+            //console.log(prefixx.toString()+'000'+ str);
+            expect(detectNetwork(prefixx.toString()+'000'+ str)).to.equal('China UnionPay');
+          });
+          it('has a prefix of '+prefixxx+' and a length of' + length, function(){
+            //console.log(prefixxx.toString()+'000'+ str);
+            expect(detectNetwork(prefixxx.toString()+'00'+ str)).to.equal('China UnionPay');
+          });
+        })(prefix,length,str,prefixx,prefixxx);
+      }
+    }
+  }
+ }
+ //      it('has a prefix of 624 and a length of 16',function(){
+ //        expect(detectNetwork('6241010101010101')).to.equal('China UnionPay');
+ //      });
+///6221263456565121
+//6221260000000000
 
-describe('should support China UnionPay');
+});
 describe('should support Switch');
