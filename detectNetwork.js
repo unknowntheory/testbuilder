@@ -18,11 +18,12 @@ var detectNetwork = function(cardNumber) {
   var firstTwo = cardNumber.slice(0,2);
   var firstThree = cardNumber.slice(0,3);
   var firstFour = cardNumber.slice(0,4);
-  var mastercard = /^[51-55]/g;
+  var mastercard = /^([51-55])/g;
   var maestro = /^5018|5020|5038|6304/g;
   var discoverPrefix = ['6011','644','645','646','647','648','649','65'];///^6011|[644-649]|65/g;
   var dinnerClubPrefix = ['38','39'];
   var americanExpress = ['34','37'];
+  var chinaUnionPrefix = /^(62212[6-9]|6221[3-9][0-9]|622[2-8][0-9]{2}|6229[01][0-9]|62292[0-5]|^(62[4-6])|^(628[2-8]))/;//^([622126-622925])|^(62[4-6])/g;
   if (typeof cardNumber === 'string') {
     if (cardNumber.length===14&&dinnerClubPrefix.indexOf(firstTwo)!==-1){
               return 'Diner\'s Club';
@@ -36,10 +37,13 @@ var detectNetwork = function(cardNumber) {
       return "Discover";
     }else if([12,13,14,15,16,17,18,19].indexOf(cardNumber.length)!==-1&&maestro.test(cardNumber)){
        return "Maestro";
-   }
+    }else if ([16,17,18,19].indexOf(cardNumber.length)!==-1&& chinaUnionPrefix.test(cardNumber)) {
+       return 'China UnionPay';
+    }
  }else{
    return 'not in right format';
  }
 };
 //6011123456746126545
 //5018123454564845
+//6284000000000000000
