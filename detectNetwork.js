@@ -19,17 +19,19 @@ var detectNetwork = function(cardNumber) {
   var firstThree = cardNumber.slice(0,3);
   var firstFour = cardNumber.slice(0,4);
   var mastercard = /^([51-55])/g;
-  var maestro = /^5018|5020|5038|6304/g;
+  var maestro = /^(5018)|^(5020)|^(5038)|^(6304)/g;
   var discoverPrefix = ['6011','644','645','646','647','648','649','65'];///^6011|[644-649]|65/g;
   var dinnerClubPrefix = ['38','39'];
   var americanExpress = ['34','37'];
-  var chinaUnionPrefix = /^(62212[6-9]|6221[3-9][0-9]|622[2-8][0-9]{2}|6229[01][0-9]|62292[0-5]|^(62[4-6])|^(628[2-8]))/;//^([622126-622925])|^(62[4-6])/g;
+  var chinaUnionPrefix = /^(62212[6-9]|6221[3-9][0-9]|622[2-8][0-9]{2}|6229[01][0-9]|62292[0-5]|^(62[4-6])|^(628[2-8])|^(625))/;//^([622126-622925])|^(62[4-6])/g;
+  var switchPrefix = /^(4903)|^(4905)|^(4911)|^(4936)|^(564182)|^(633110)|^(6333)|^(6759)/g;//4903','4905','4911','4936','564182','564182','633110','633','6759'
+  var checkPrefix = ['4903','4905','4911','4936','564182','633110','6333','6759'];
   if (typeof cardNumber === 'string') {
     if (cardNumber.length===14&&dinnerClubPrefix.indexOf(firstTwo)!==-1){
               return 'Diner\'s Club';
     }else if (cardNumber.length===15&&americanExpress.indexOf(firstTwo)!==-1){
         return 'American Express';
-    }else if([13,16,19].indexOf(cardNumber.length)!==-1&&['4'].indexOf(firstOne)!==-1){
+    }else if([13,16,19].indexOf(cardNumber.length)!==-1&&['4'].indexOf(firstOne)!==-1&&checkPrefix.indexOf(firstFour)===-1){
         return 'Visa';
     }else if ([16].indexOf(cardNumber.length)!==-1 && ['51','52','53','54','55'].indexOf(firstTwo)!==-1) {
       return 'MasterCard';
@@ -39,6 +41,8 @@ var detectNetwork = function(cardNumber) {
        return "Maestro";
     }else if ([16,17,18,19].indexOf(cardNumber.length)!==-1&& chinaUnionPrefix.test(cardNumber)) {
        return 'China UnionPay';
+    }else if([16,18,19].indexOf(cardNumber.length)!==-1&&switchPrefix.test(cardNumber)){
+      return 'Switch';
     }
  }else{
    return 'not in right format';
